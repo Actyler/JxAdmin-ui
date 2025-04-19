@@ -2,7 +2,7 @@ import type { EventHandlerRequest, H3Event } from 'h3';
 
 export function useResponseSuccess<T = any>(data: T) {
   return {
-    code: 0,
+    code: 200,
     data,
     error: null,
     message: 'ok',
@@ -32,7 +32,7 @@ export function usePageResponseSuccess<T = any>(
 
 export function useResponseError(message: string, error: any = null) {
   return {
-    code: -1,
+    code: 500,
     data: null,
     error,
     message,
