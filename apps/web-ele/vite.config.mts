@@ -1,8 +1,10 @@
-import { defineConfig } from '@vben/vite-config';
+import { defineConfig, loadEnv } from '@vben/vite-config';
 
 import ElementPlus from 'unplugin-element-plus/vite';
 
 export default defineConfig(async () => {
+  const env = loadEnv();
+
   return {
     application: {},
     vite: {
@@ -13,11 +15,14 @@ export default defineConfig(async () => {
       ],
       server: {
         proxy: {
-          '/api': {
+          [env.VITE_GLOB_API]: {
             changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/api/, ''),
+            // rewrite: (path) => path.replace(/^\/api/, ''),
+            rewrite: (path) => path.replace(`/^${env.VITE_GLOB_API}`, ''),
+            //  https安全
+            secure: false,
             // mock代理目标地址
-            target: 'http://localhost:8787/adminApi',
+            target: env.VITE_GLOB_API_URL,
             ws: true,
           },
         },
