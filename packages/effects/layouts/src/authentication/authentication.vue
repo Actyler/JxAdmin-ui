@@ -123,7 +123,7 @@ const { authPanelCenter, authPanelLeft, authPanelRight, isDark } =
     <!-- 右侧认证面板 -->
     <AuthenticationFormView
       v-if="authPanelRight"
-      class="min-h-full w-[34%] flex-1"
+      class="flex-200 min-h-full w-[34%]"
     >
       <template v-if="copyright" #copyright>
         <slot name="copyright">

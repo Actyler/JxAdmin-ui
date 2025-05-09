@@ -9,7 +9,8 @@ export namespace AuthApi {
 
   /** 登录接口返回值 */
   export interface LoginResult {
-    accessToken: string;
+    token: string;
+    refreshToken: string;
   }
 
   export interface RefreshTokenResult {
@@ -29,16 +30,19 @@ export async function loginApi(data: AuthApi.LoginParams) {
  * 刷新accessToken
  */
 export async function refreshTokenApi() {
-  return baseRequestClient.post<AuthApi.RefreshTokenResult>('/auth/refresh', {
-    withCredentials: true,
-  });
+  return baseRequestClient.post<AuthApi.RefreshTokenResult>(
+    '/system/login/refresh',
+    {
+      withCredentials: true,
+    },
+  );
 }
 
 /**
  * 退出登录
  */
 export async function logoutApi() {
-  return baseRequestClient.post('/auth/logout', {
+  return baseRequestClient.post('/system/login/logout', {
     withCredentials: true,
   });
 }
@@ -47,5 +51,5 @@ export async function logoutApi() {
  * 获取用户权限码
  */
 export async function getAccessCodesApi() {
-  return requestClient.get<string[]>('/auth/permCodes');
+  return requestClient.get<string[]>('/system/login/permCodes');
 }
